@@ -7,41 +7,51 @@ function resetSeasonOverview() {
   //
 }
 
-function getSeasonData() {
-  //
-  const apiURL = 'https://rickandmortyapi.com/api/episode';
-  fetch(apiURL)
+function paginated_fetch(
+  url = 'https://rickandmortyapi.com/api/episode/', // Improvised required argument in JS
+  page = 1,
+  previousResponse = []
+) {
+  return fetch(`${url}?page=${page}`) // Append the page number to the base URL
     .then(response => response.json())
-    .then(data => {
-      arrSeasonData = data.results;
+    .then(newResponse => {
+      const response = [...previousResponse, ...newResponse.results]; // Combine the two arrays
 
-      filterSeasons(data.results);
+      if (page < 3) {
+        page++;
+
+        return paginated_fetch(url, page, response);
+      }
+
+      console.log(response);
+
+      filterSeasons(response);
+    })
+    .catch(error => {
+      console.error(error.message);
     });
-    
-
 }
 
-function filterSeasons(seasons){
-      
-  arrSeasonData = seasons.filter((season)=> {
-    const seasonNumber = Number(season.episode.substring(2,3) );
+// function getSeasonData() {
+//   //
+//   const apiURL = 'https://rickandmortyapi.com/api/episode';
+//   fetch(apiURL)
+//     .then(response => response.json())
+//     .then(data => {
+//       arrSeasonData = data.results;
 
-    console.log(seasonNumber)
+//       filterSeasons(data.results);
+//     });
+// }
 
-    return currentSeasonNumber === seasonNumber
-  })
-  
-  
-  
-  
+function filterSeasons(seasons) {
+  arrSeasonData = seasons.filter(season => {
+    const seasonNumber = Number(season.episode.substring(2, 3));
+    // console.log(seasonNumber)
+    return currentSeasonNumber === seasonNumber;
+  });
   buildEpisodeView();
-
-
-
-
-
 }
-
 
 function buildSeasonView() {
   //
@@ -57,7 +67,6 @@ function buildEpisodeView() {
     '[data-js="episodeList"]'
   );
 
-
   arrSeasonData.forEach(episode => {
     const dynamicSeasonItem = document.createElement('li');
     const dynamicSeasonButton = document.createElement('button');
@@ -70,11 +79,11 @@ function buildEpisodeView() {
 }
 
 function showSeasonOverview(seasonNumber = 1) {
-  console.log(seasonNumber);
+  // console.log(seasonNumber);
   resetSeasonOverview();
-
+  paginated_fetch();
   /* s01e01 */
-  getSeasonData();
+  // getSeasonData();
 }
 
 function showEpisodeView(episodeNumber = 1) {
@@ -85,4 +94,4 @@ function showEpisodeView(episodeNumber = 1) {
 
 showSeasonOverview();
 
-showEpisodeView();
+// showEpisodeView();
