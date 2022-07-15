@@ -45,15 +45,14 @@ function paginatedCharacterFetch(
   return fetch(`${url}${page}`) // Append the page number to the base URL
     .then(response => response.json())
     .then(newResponse => {
-      console.log(newResponse);
       const response = [...previousResponse, ...newResponse.name]; // Combine the two arrays
-      console.log(newResponse);
+
       if (page < 20) {
         page++;
-
+        console.log(newResponse.name);
         return paginatedCharacterFetch(url, page, response);
       }
-
+      createCharacterCard(newResponse);
     })
     .catch(error => {
       console.error(error.message);
@@ -61,6 +60,45 @@ function paginatedCharacterFetch(
 }
 
 paginatedCharacterFetch();
+
+function createCharacterCard(card) {
+  card.forEach(character => {
+    const characterContainer = document.querySelector(
+      '[data-js="characterContainer"]'
+    );
+
+    const characterInfoList = document.querySelector(
+      '[data-js="characterInfoList"]'
+    );
+    const characterInfoContainer = document.querySelector(
+      '[data-js="characterInfoContainer"]'
+    );
+    const characterName = document.createElement('h2');
+    characterName.classList.add('character-name');
+    characterName.innerText = character.name;
+    const characterImg = document.createElement('img');
+    characterImg.classList.add('character-img');
+    characterImg.src = character.image;
+
+    const characterInfoSpecies = document.createElement('li');
+    characterInfoSpecies.classList.add('character-info-list__item');
+    characterInfoSpecies.innerHTML = `<span>Species:</span> ${character.species}`;
+    const characterInfoUniverse = document.createElement('li');
+    characterInfoUniverse.classList.add('character-info-list__item');
+    characterInfoUniverse.innerHTML = `<span>Universe:</span> ${character.origin.name}`;
+    const characterInfoStatus = document.createElement('li');
+    characterInfoStatus.classList.add('character-info-list__item');
+    characterInfoStatus.innerHTML = `<span>Status:</span> ${character.status}`;
+
+    characterContainer.append(characterName);
+    characterInfoContainer.append(characterImg);
+    characterInfoList.append(
+      characterInfoSpecies,
+      characterInfoUniverse,
+      characterInfoStatus
+    );
+  });
+}
 
 function filterSeasons(seasons) {
   arrSeasonData = seasons.filter(season => {
