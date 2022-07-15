@@ -6,7 +6,9 @@ let arrSeasonData = [];
 let currentSeasonNumber = 1;
 
 function resetSeasonOverview() {
-  //
+  
+  const killMe = document.querySelector('[data-js="episodeList' + currentSeasonNumber +'"]');
+  killMe.innerText = "";
 }
 
 function paginated_fetch(
@@ -78,9 +80,6 @@ function showEpisodeView(episodeNumber = 1) {
   buildEpisodeView();
 }
 
-showSeasonOverview();
-
-seasonNavigation();
 
 function seasonNavigation() {
   const navButtons = document.querySelectorAll('.episodeGuide button');
@@ -107,3 +106,7 @@ function seasonNavigation() {
   // init
   arrStaffelIDS[0].classList.add('show__seasons');
 }
+
+
+showSeasonOverview();
+seasonNavigation();
