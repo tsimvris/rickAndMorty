@@ -12,33 +12,48 @@
 
 <body>
   <div class="episodeGuide">
-    <nav>
-      <ul>
-        <li><a href="#staffel1">Staffel 1</a> </li>
-        <li><a href="#staffel2">Staffel 2</a></li>
-        <li><a href="#staffel3">Staffel 3</a></li>
-        <li><a href="#staffel4">Staffel 4</a></li>
-        <li><a href="#staffel5">Staffel 5</a></li>
+    <nav class="seasons-nav">
+      <ul class="seasons-nav__ul">
+        <li class="seasons-nav__ul__li"><a href="#staffel1">Staffel 1</a> </li>
+        <li class="seasons-nav__ul__li"><a href="#staffel2">Staffel 2</a></li>
+        <li class="seasons-nav__ul__li"><a href="#staffel3">Staffel 3</a></li>
+        <li class="seasons-nav__ul__li"><a href="#staffel4">Staffel 4</a></li>
+        <li class="seasons-nav__ul__li"><a href="#staffel5">Staffel 5</a></li>
 
       </ul>
     </nav>
-    <div id="staffel1">
-      <h2>Staffel 1</h2>
-      <div><img src="../rick-st1.jpeg" alt="">
-        <p>Die erste Staffel der US-amerikanischen Animationsserie Rick and Morty wurde erstmals zwischen dem 2.
+    <div class="seasons-card" id="staffel1">
+      <h2 class="seasons-card__headline">Staffel 1</h2>
+      <div class="seasons-card-info">
+        <img class="seasons-card-info__image" src="./rick-st1.jpeg" alt="">
+        <p class="seasons-card-info__text">Die erste Staffel der US-amerikanischen Animationsserie Rick and Morty wurde
+          erstmals zwischen dem 2.
           Dezember 2013 und dem 14. April 2014 auf Adult Swim ausgestrahlt. Rick and Morty - Staffel 1 verfolgt die
           Abenteuer, die der exzentrische Wissenschaftler Rick gemeinsam mit seinem Enkel Morty erlebt.</p>
       </div>
-      <ol>
-        <li><button>Episode 1</button></li>
-        <li><button>Episode 1</button></li>
-        <li><button>Episode 1</button></li>
-        <li><button>Episode 1</button></li>
-        <li><button>Episode 1</button></li>
-        <li><button>Episode 1</button></li>
-        <li><button>Episode 1</button></li>
-        <li><button>Episode 1</button></li>
-        <li><button>Episode 1</button></li>
+      <ol class="episode-list">
+        <li class="episode-list__li">
+          <button class="episode-list__button">Episode 1</button>
+        </li>
+        <li class="episode-list__li">
+          <button class="episode-list__button">Episode 1</button>
+        </li>
+        <li class="episode-list__li">
+          <button class="episode-list__button">Episode 1</button>
+        </li>
+        <li class="episode-list__li">
+          <button class="episode-list__button">Episode 1</button>
+        </li>
+        <li class="episode-list__li">
+          <button class="episode-list__button">Episode 1</button>
+        </li>
+        <li class="episode-list__li">
+          <button class="episode-list__button">Episode 1</button>
+        </li>
+        <li class="episode-list__li">
+          <button class="episode-list__button">Episode 1</button>
+        </li>
+
 
 
 
@@ -54,6 +69,19 @@
   <div class="characterList"></div>
   <div class="locations"></div>
   <div class="watchList"></div>
+
+  <nav class="main-nav">
+    <ul class="main-nav__ul">
+      <li class="main-nav__ul__li"><button class="main-nav__ul__li__button">⌂
+        </button></li>
+      <li class="main-nav__ul__li"><button class="main-nav__ul__li__button">⦿
+        </button></li>
+      <li class="main-nav__ul__li"><button class="main-nav__ul__li__button">❖
+        </button></li>
+      <li class="main-nav__ul__li"><button class="main-nav__ul__li__button">✪
+        </button></li>
+    </ul>
+  </nav>
 </body>
 
 </html>
