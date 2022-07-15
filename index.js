@@ -7,11 +7,12 @@ let currentSeasonNumber = 1;
 
 function resetSeasonOverview() {
   
-  const killMe = document.querySelector('[data-js="episodeList' + currentSeasonNumber +'"]');
+  const killMe = document
+  .querySelector('[data-js="episodeList' + currentSeasonNumber +'"]');
   killMe.innerText = "";
 }
 
-function paginated_fetch(
+function paginatedFetch(
   url = 'https://rickandmortyapi.com/api/episode/', // Improvised required argument in JS
   page = 1,
   previousResponse = []
@@ -24,7 +25,7 @@ function paginated_fetch(
       if (page < 3) {
         page++;
 
-        return paginated_fetch(url, page, response);
+        return paginatedFetch(url, page, response);
       }
 
       //console.log(response);
@@ -70,8 +71,9 @@ function buildEpisodeView() {
 }
 
 function showSeasonOverview(seasonNumber = 1) {
+
   resetSeasonOverview();
-  paginated_fetch();
+  paginatedFetch();
 }
 
 function showEpisodeView(episodeNumber = 1) {
