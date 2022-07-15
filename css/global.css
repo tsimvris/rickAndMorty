@@ -1,8 +1,40 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: sans-serif;
-  margin: 0;
+  font-size: 62.5%;
+}
+main {
+  font-size:  1.6rem;
+  margin-bottom: 60px;
+}
+
+:root{
+  --accent-color: #f4645a;
+  --dark-color: #2d2338;
+  --font-small: 1.2rem;
+  --font-medium: 1.6rem;
+  --font-large: 2.3rem;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+a:hover{
+  color: var(--accent-color);
+}
+
+h1{
+  text-decoration: underline var(--accent-color) ;
+  text-align: center;
+  margin: 20px 0;
+}
+
+button {
+  border: none;
+  background-color: transparent;
 }
