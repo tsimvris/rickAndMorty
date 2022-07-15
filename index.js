@@ -84,25 +84,26 @@ seasonNavigation();
 
 function seasonNavigation() {
   const navButtons = document.querySelectorAll('.episodeGuide button');
-  const staffelContainer1 = document.querySelector('#staffel1');
-  const staffelContainer2 = document.querySelector('#staffel2');
-  const staffelContainer3 = document.querySelector('#staffel3');
-  const staffelContainer4 = document.querySelector('#staffel4');
-  const staffelContainer5 = document.querySelector('#staffel5');
+  const arrStaffelIDS = [document.querySelector('#staffel1'),
+  document.querySelector('#staffel2'),
+  document.querySelector('#staffel3'),
+  document.querySelector('#staffel4'),
+  document.querySelector('#staffel5')
+];
 
   navButtons.forEach((button, index) => {
     button.addEventListener('click', () => {
-      index++;
-      staffelContainer1.classList.remove('show__seasons');
-      staffelContainer2.classList.remove('show__seasons');
-      staffelContainer3.classList.remove('show__seasons');
-      staffelContainer4.classList.remove('show__seasons');
-      staffelContainer5.classList.remove('show__seasons');
-      ['staffelContainer' + index].classList.add('show__seasons');
 
-      console.log(['staffelContainer' + index]);
+      arrStaffelIDS.forEach((ele) => {
+          ele.classList.remove('show__seasons');
+      })
+      arrStaffelIDS[index].classList.add('show__seasons');
+
+      // Call show
+      currentSeasonNumber = 1 + index;
+      showSeasonOverview();
     });
   });
-
-  //  console.log(navButtons);
+  // init
+  arrStaffelIDS[0].classList.add('show__seasons');
 }
