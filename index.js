@@ -32,18 +32,6 @@ function paginated_fetch(
     });
 }
 
-// function getSeasonData() {
-//   //
-//   const apiURL = 'https://rickandmortyapi.com/api/episode';
-//   fetch(apiURL)
-//     .then(response => response.json())
-//     .then(data => {
-//       arrSeasonData = data.results;
-
-//       filterSeasons(data.results);
-//     });
-// }
-
 function filterSeasons(seasons) {
   arrSeasonData = seasons.filter(season => {
     const seasonNumber = Number(season.episode.substring(2, 3));
@@ -53,10 +41,9 @@ function filterSeasons(seasons) {
   buildEpisodeView();
 }
 
-function buildSeasonView() {
-  //
-  buildEpisodeView();
-}
+// function buildSeasonView() {
+//   //
+// }
 
 function resetEpisodeView() {
   //
@@ -64,7 +51,7 @@ function resetEpisodeView() {
 
 function buildEpisodeView() {
   const dynamicSeasonContainer = document.querySelector(
-    '[data-js="episodeList"]'
+    `[data-js="episodeList${currentSeasonNumber}"]`
   );
 
   arrSeasonData.forEach(episode => {
@@ -79,11 +66,8 @@ function buildEpisodeView() {
 }
 
 function showSeasonOverview(seasonNumber = 1) {
-  // console.log(seasonNumber);
   resetSeasonOverview();
   paginated_fetch();
-  /* s01e01 */
-  // getSeasonData();
 }
 
 function showEpisodeView(episodeNumber = 1) {
@@ -94,4 +78,8 @@ function showEpisodeView(episodeNumber = 1) {
 
 showSeasonOverview();
 
-// showEpisodeView();
+seasonNavigation();
+
+function seasonNavigation() {
+  //
+}
