@@ -1,0 +1,30 @@
+.character-container {
+  border: 2px solid lightgray;
+  margin: 20px;
+  padding: 10px;
+}
+
+.character-name {
+  margin-bottom: 10px;
+}
+
+.character-info-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.character-img {
+  width: 150px;
+  border-radius: 20px;
+}
+
+.character-info-list {
+    list-style: none;
+    line-height: 3rem;
+}
+
+.character-info-list span {
+    border-left: 4px solid var(--accent-color);
+    border-bottom: 4px solid var(--accent-color);
+    padding: 0 0 5px 10px;
+}
