@@ -1,22 +1,22 @@
-.seasons-card{
-    margin: 20px;
-    border: 1px solid lightgray;
-    padding: 10px;
+.seasons-card {
+  margin: 20px;
+  border: 1px solid lightgray;
+  padding: 10px;
 }
 
-.seasons-card-info{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
-    margin: 20px 0;
+.seasons-card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 20px 0;
 }
 
-.seasons-card-info__image{
-    width: 80px;
-    height: 115px;
+.seasons-card-info__image {
+  width: 80px;
+  height: 115px;
 }
 
-.seasons-card-info__text{
-    font-size: var(--font-small);
+.seasons-card-info__text {
+  font-size: var(--font-small);
 }

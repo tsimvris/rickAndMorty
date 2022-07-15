@@ -1,6 +1,6 @@
-.seasons-nav__ul{
-    list-style: none;
-    font-size: var(--font-small);
-    display: flex;
-    justify-content: space-evenly;
+.seasons-nav__ul {
+  list-style: none;
+  font-size: var(--font-small);
+  display: flex;
+  justify-content: space-evenly;
 }
