@@ -49,9 +49,9 @@ function paginatedCharacterFetch(
 
       if (page < 20) {
         page++;
-        console.log(newResponse.name);
         return paginatedCharacterFetch(url, page, response);
       }
+      console.log(newResponse);
       createCharacterCard(newResponse);
     })
     .catch(error => {

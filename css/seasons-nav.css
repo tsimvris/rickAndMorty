@@ -4,3 +4,8 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.seasons-nav__ul__li button:hover {
+  text-decoration: underline 2px var(--accent-color);
+  font-weight: 600;
+}
