@@ -37,42 +37,73 @@ function paginatedFetch(
     });
 }
 
-function paginatedCharacterFetch(
-  url = 'https://rickandmortyapi.com/api/character/', // Improvised required argument in JS
-  page = 1,
-  previousResponse = []
-) {
-  return fetch(`${url}${page}`) // Append the page number to the base URL
-    .then(response => response.json())
-    .then(newResponse => {
-      const response = [...previousResponse, ...newResponse.name]; // Combine the two arrays
+// function paginatedCharacterFetch(
+//   url = 'https://rickandmortyapi.com/api/character/', // Improvised required argument in JS
+//   page = 1,
+//   previousResponse = []
+// ) {
+//   return fetch(`${url}${page}`) // Append the page number to the base URL
+//     .then(response => response.json())
+//     .then(newResponse => {
+//       const response = [...previousResponse, ...newResponse.name];
+//       // Combine the two arrays
 
-      if (page < 20) {
-        page++;
-        return paginatedCharacterFetch(url, page, response);
-      }
-      console.log(newResponse);
-      createCharacterCard(newResponse);
-    })
-    .catch(error => {
-      console.error(error.message);
+//       if (page < 20) {
+//         page++;
+//         // console.log(newResponse);
+//         return paginatedCharacterFetch(url, page, response);
+//       }
+//       console.log(newResponse);
+//       createCharacterCard(newResponse);
+//     })
+//     .catch(error => {
+//       console.error(error.message);
+//     });
+// }
+
+function paginatedCharacterFetch() {
+  const limitPerPage = 20;
+  const apiUrl = 'https://rickandmortyapi.com/api/character/';
+
+  const getUsers = async function (pageNo = 1) {
+    let actualUrl = apiUrl + `?page=${pageNo}&limit=${limitPerPage}`;
+    var apiResults = await fetch(actualUrl).then(resp => {
+      return resp.json();
     });
+
+    return apiResults;
+  };
+
+  const getEntireUserList = async function (pageNo = 1) {
+    const results = await getUsers(pageNo);
+    console.log('Retreiving data from API for page : ' + pageNo);
+    if (results.length > 0) {
+      return results.concat(await getEntireUserList(pageNo + 1));
+    } else {
+      return results;
+    }
+  };
+
+  (async () => {
+    const entireList = await getEntireUserList();
+    console.log(entireList.results);
+    createCharacterCard(entireList.results);
+  })();
 }
 
 paginatedCharacterFetch();
 
-function createCharacterCard(card) {
-  card.forEach(character => {
-    const characterContainer = document.querySelector(
-      '[data-js="characterContainer"]'
-    );
+function createCharacterCard(characterCard) {
+  characterCard.forEach(character => {
+    const characterContainer = document.createElement('div');
+    characterContainer.classList.add('character-container');
 
-    const characterInfoList = document.querySelector(
-      '[data-js="characterInfoList"]'
-    );
-    const characterInfoContainer = document.querySelector(
-      '[data-js="characterInfoContainer"]'
-    );
+    const characterInfoContainer = document.createElement('article');
+    characterInfoContainer.classList.add('info-container');
+
+    const characterInfoList = document.createElement('ul');
+    characterInfoList.classList.add('character-info-list');
+
     const characterName = document.createElement('h2');
     characterName.classList.add('character-name');
     characterName.innerText = character.name;
@@ -90,8 +121,8 @@ function createCharacterCard(card) {
     characterInfoStatus.classList.add('character-info-list__item');
     characterInfoStatus.innerHTML = `<span>Status:</span> ${character.status}`;
 
-    characterContainer.append(characterName);
-    characterInfoContainer.append(characterImg);
+    characterContainer.append(characterName, characterInfoContainer);
+    characterInfoContainer.append(characterImg, characterInfoList);
     characterInfoList.append(
       characterInfoSpecies,
       characterInfoUniverse,
@@ -113,9 +144,9 @@ function filterSeasons(seasons) {
 //   //
 // }
 
-function resetEpisodeView() {
-  //
-}
+// function resetEpisodeView() {
+//   //
+// }
 
 function buildEpisodeView() {
   const dynamicSeasonContainer = document.querySelector(
@@ -133,16 +164,16 @@ function buildEpisodeView() {
   });
 }
 
-function showSeasonOverview(seasonNumber = 1) {
+function showSeasonOverview() {
   resetSeasonOverview();
   paginatedFetch();
 }
 
-function showEpisodeView(episodeNumber = 1) {
-  console.log(episodeNumber);
-  resetEpisodeView();
-  buildEpisodeView();
-}
+// function showEpisodeView(episodeNumber = 1) {
+//   console.log(episodeNumber);
+//   resetEpisodeView();
+//   buildEpisodeView();
+// }
 
 function seasonNavigation() {
   const navButtons = document.querySelectorAll('.episodeGuide button');
