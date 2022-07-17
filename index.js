@@ -61,6 +61,8 @@ function paginatedFetch(
 //     });
 // }
 
+// ------------------- Character Guide -------------------------- //
+
 function paginatedCharacterFetch() {
   const limitPerPage = 20;
   const apiUrl = 'https://rickandmortyapi.com/api/character/';
@@ -133,6 +135,8 @@ function createCharacterCard(characterCard) {
     );
   });
 }
+
+// ------------------------- END Character Guide ----------------------------------- //
 
 function filterSeasons(seasons) {
   arrSeasonData = seasons.filter(season => {
