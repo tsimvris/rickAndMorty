@@ -95,6 +95,8 @@ paginatedCharacterFetch();
 
 function createCharacterCard(characterCard) {
   characterCard.forEach(character => {
+    const characterList = document.querySelector('[data-js="characterList"]');
+
     const characterContainer = document.createElement('div');
     characterContainer.classList.add('character-container');
 
@@ -121,6 +123,7 @@ function createCharacterCard(characterCard) {
     characterInfoStatus.classList.add('character-info-list__item');
     characterInfoStatus.innerHTML = `<span>Status:</span> ${character.status}`;
 
+    characterList.append(characterContainer);
     characterContainer.append(characterName, characterInfoContainer);
     characterInfoContainer.append(characterImg, characterInfoList);
     characterInfoList.append(
