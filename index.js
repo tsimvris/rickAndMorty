@@ -79,7 +79,7 @@ function paginatedCharacterFetch() {
   const getEntireUserList = async function (pageNo = 1) {
     const results = await getUsers(pageNo);
     console.log('Retreiving data from API for page : ' + pageNo);
-    if (results.length > 0) {
+    if (results.length > 0 /*pageNo < 42*/) {
       return results.concat(await getEntireUserList(pageNo + 1));
     } else {
       return results;
@@ -94,11 +94,10 @@ function paginatedCharacterFetch() {
 }
 
 paginatedCharacterFetch();
+const characterList = document.querySelector('[data-js="characterList"]');
 
 function createCharacterCard(characterCard) {
   characterCard.forEach(character => {
-    const characterList = document.querySelector('[data-js="characterList"]');
-
     const characterContainer = document.createElement('div');
     characterContainer.classList.add('character-container');
 
@@ -137,6 +136,31 @@ function createCharacterCard(characterCard) {
 }
 
 // ------------------------- END Character Guide ----------------------------------- //
+
+// -------------------------- NAV ------------------------------------------------ //
+
+const seasonView = document.querySelector('[data-js="seasonsView"]');
+const seasonsButton = document.querySelector('[data-js="seasonButton"]');
+const charactersButton = document.querySelector('[data-js="characterButton"]');
+function handleNav() {
+  // seasonView.classList.add('display--none');
+  characterList.classList.add('display--none');
+
+  seasonsButton.addEventListener('click', () => {
+    console.log('clicked');
+    seasonView.classList.remove('display--none');
+    characterList.classList.add('display--none');
+    window.scrollTo(0, 0);
+  });
+
+  charactersButton.addEventListener('click', () => {
+    characterList.classList.remove('display--none');
+    seasonView.classList.add('display--none');
+    window.scrollTo(0, 0);
+  });
+}
+
+// -------------------------------- END NAV ------------------------------------- //
 
 function filterSeasons(seasons) {
   arrSeasonData = seasons.filter(season => {
@@ -210,5 +234,6 @@ function seasonNavigation() {
 
 // -------------------   Character Guide   ------------------ //
 
+handleNav();
 showSeasonOverview();
 seasonNavigation();

@@ -10,7 +10,8 @@
 
   <body>
     <main>
-      <div class="episodeGuide">
+      <!----------------------- Episode Guide ------------------------->
+      <div class="episodeGuide" data-js="seasonsView">
         <h1>Episoden Guide</h1>
         <nav class="seasons-nav">
           <ul class="seasons-nav__ul">
@@ -121,24 +122,34 @@
           <ol class="episode-list" data-js="episodeList5"></ol>
         </div>
       </div>
+
+      <!----------------------- END Episode Guide ------------------------->
+
+      <!----------------------- Character Guide ---------------------------->
+
       <div class="characterList" data-js="characterList">
         <h1>Character Guide</h1>
       </div>
+
+      <!----------------------- Character Guide ---------------------------->
     </main>
+
+    <!-------------------------- NAV --------------------------------------->
     <nav class="main-nav">
       <ul class="main-nav__ul">
         <li class="main-nav__ul__li">
-          <button class="main-nav__ul__li__button">
+          <button class="main-nav__ul__li__button" data-js="seasonButton">
             <ion-icon name="albums-outline"></ion-icon>
           </button>
         </li>
         <li class="main-nav__ul__li">
-          <button class="main-nav__ul__li__button">
+          <button class="main-nav__ul__li__button" data-js="characterButton">
             <ion-icon name="body-outline"></ion-icon>
           </button>
         </li>
       </ul>
     </nav>
+    <!-------------------------- END NAV ------------------------------------>
     <script type="module" defer src="index.js"></script>
     <script
       type="module"

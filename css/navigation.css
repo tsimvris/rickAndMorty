@@ -19,3 +19,9 @@
   color: white;
   font-size: var(--font-large);
 }
+
+.display--none {
+  display: none;
+}
+
+
