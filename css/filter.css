@@ -1,0 +1,7 @@
+.filter-container {
+  padding: 20px;
+}
+
+.filter-container__list__button {
+  font-size: var(--font-small);
+}

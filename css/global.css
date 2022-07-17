@@ -41,3 +41,11 @@ button {
   border: none;
   background-color: transparent;
 }
+
+ul {
+  list-style: none;
+}
+
+.underline-hover:hover {
+  text-decoration: underline 2px var(--accent-color);
+}
