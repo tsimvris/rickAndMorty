@@ -141,22 +141,29 @@ function createCharacterCard(characterCard) {
 
 const seasonView = document.querySelector('[data-js="seasonsView"]');
 const seasonsButton = document.querySelector('[data-js="seasonButton"]');
+const seasonsIcon = document.querySelector('[data-js="seasonsIcon"]');
+const charactersIcon = document.querySelector('[data-js="characterIcon"]');
+
 const charactersButton = document.querySelector('[data-js="characterButton"]');
 function handleNav() {
   // seasonView.classList.add('display--none');
   characterList.classList.add('display--none');
+  seasonsIcon.setAttribute('name', 'albums');
 
   seasonsButton.addEventListener('click', () => {
-    console.log('clicked');
     seasonView.classList.remove('display--none');
     characterList.classList.add('display--none');
     window.scrollTo(0, 0);
+    seasonsIcon.setAttribute('name', 'albums');
+    charactersIcon.setAttribute('name', 'body-outline');
   });
 
   charactersButton.addEventListener('click', () => {
     characterList.classList.remove('display--none');
     seasonView.classList.add('display--none');
     window.scrollTo(0, 0);
+    charactersIcon.setAttribute('name', 'body');
+    seasonsIcon.setAttribute('name', 'albums-outline');
   });
 }
 
