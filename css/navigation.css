@@ -5,12 +5,14 @@
   width: 100%;
   height: 50px;
   background-color: var(--dark-color);
+  padding: 5px 0;
 }
 
 .main-nav__ul {
   display: flex;
   justify-content: space-evenly;
   list-style: none;
+  align-items: center;
 }
 
 .main-nav__ul__li__button {
