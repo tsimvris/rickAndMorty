@@ -88,15 +88,111 @@ function paginatedCharacterFetch() {
 
   (async () => {
     const entireList = await getEntireUserList();
-    console.log(entireList.results);
     createCharacterCard(entireList.results);
   })();
 }
-
 paginatedCharacterFetch();
+
 const characterList = document.querySelector('[data-js="characterList"]');
+const allFilterButton = document.querySelector('[data-js="allFilter"]');
+const universeFilterButton = document.querySelector(
+  '[data-js="universeFilter"]'
+);
+const speciesFilterButton = document.querySelector('[data-js="speciesFilter"]');
 
 function createCharacterCard(characterCard) {
+  // Filter by Universe
+  universeFilterButton.addEventListener('click', () => {
+    const characterFromEarth = characterCard.filter(character =>
+      character.origin.name.includes('Earth')
+    );
+
+    console.log(characterFromEarth);
+
+    characterFromEarth.forEach(character => {
+      const characterFromEarthContainer = document.createElement('div');
+      characterFromEarthContainer.classList.add('character-container');
+
+      const characterInfoContainer = document.createElement('article');
+      characterInfoContainer.classList.add('info-container');
+
+      const characterInfoList = document.createElement('ul');
+      characterInfoList.classList.add('character-info-list');
+
+      const characterName = document.createElement('h2');
+      characterName.classList.add('character-name');
+      characterName.innerText = character.name;
+      const characterImg = document.createElement('img');
+      characterImg.classList.add('character-img');
+      characterImg.src = character.image;
+
+      const characterInfoSpecies = document.createElement('li');
+      characterInfoSpecies.classList.add('character-info-list__item');
+      characterInfoSpecies.innerHTML = `<span>Species:</span> ${character.species}`;
+      const characterInfoUniverse = document.createElement('li');
+      characterInfoUniverse.classList.add('character-info-list__item');
+      characterInfoUniverse.innerHTML = `<span>Universe:</span> ${character.origin.name}`;
+      const characterInfoStatus = document.createElement('li');
+      characterInfoStatus.classList.add('character-info-list__item');
+      characterInfoStatus.innerHTML = `<span>Status:</span> ${character.status}`;
+
+      characterList.append(characterFromEarthContainer);
+      characterFromEarthContainer.append(characterName, characterInfoContainer);
+      characterInfoContainer.append(characterImg, characterInfoList);
+      characterInfoList.append(
+        characterInfoSpecies,
+        characterInfoUniverse,
+        characterInfoStatus
+      );
+    });
+  });
+
+  // Filter by Species
+  speciesFilterButton.addEventListener('click', () => {
+    const characterSpieciesHuman = characterCard.filter(character =>
+      character.species.includes('Human')
+    );
+
+    console.log(characterSpieciesHuman);
+
+    characterSpieciesHuman.forEach(character => {
+      const characterFromEarthContainer = document.createElement('div');
+      characterFromEarthContainer.classList.add('character-container');
+
+      const characterInfoContainer = document.createElement('article');
+      characterInfoContainer.classList.add('info-container');
+
+      const characterInfoList = document.createElement('ul');
+      characterInfoList.classList.add('character-info-list');
+
+      const characterName = document.createElement('h2');
+      characterName.classList.add('character-name');
+      characterName.innerText = character.name;
+      const characterImg = document.createElement('img');
+      characterImg.classList.add('character-img');
+      characterImg.src = character.image;
+
+      const characterInfoSpecies = document.createElement('li');
+      characterInfoSpecies.classList.add('character-info-list__item');
+      characterInfoSpecies.innerHTML = `<span>Species:</span> ${character.species}`;
+      const characterInfoUniverse = document.createElement('li');
+      characterInfoUniverse.classList.add('character-info-list__item');
+      characterInfoUniverse.innerHTML = `<span>Universe:</span> ${character.origin.name}`;
+      const characterInfoStatus = document.createElement('li');
+      characterInfoStatus.classList.add('character-info-list__item');
+      characterInfoStatus.innerHTML = `<span>Status:</span> ${character.status}`;
+
+      characterList.append(characterFromEarthContainer);
+      characterFromEarthContainer.append(characterName, characterInfoContainer);
+      characterInfoContainer.append(characterImg, characterInfoList);
+      characterInfoList.append(
+        characterInfoSpecies,
+        characterInfoUniverse,
+        characterInfoStatus
+      );
+    });
+  });
+
   characterCard.forEach(character => {
     const characterContainer = document.createElement('div');
     characterContainer.classList.add('character-container');
@@ -146,7 +242,6 @@ const charactersIcon = document.querySelector('[data-js="characterIcon"]');
 
 const charactersButton = document.querySelector('[data-js="characterButton"]');
 function handleNav() {
-  // seasonView.classList.add('display--none');
   characterList.classList.add('display--none');
   seasonsIcon.setAttribute('name', 'albums');
 
@@ -238,8 +333,6 @@ function seasonNavigation() {
   // init
   arrStaffelIDS[0].classList.add('show__seasons');
 }
-
-// -------------------   Character Guide   ------------------ //
 
 handleNav();
 showSeasonOverview();
