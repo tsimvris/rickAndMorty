@@ -24,12 +24,8 @@ function paginatedFetch(
 
       if (page < 3) {
         page++;
-
         return paginatedFetch(url, page, response);
       }
-
-      // console.log(response);
-
       filterSeasons(response);
     })
     .catch(error => {
@@ -37,59 +33,33 @@ function paginatedFetch(
     });
 }
 
-// function paginatedCharacterFetch(
-//   url = 'https://rickandmortyapi.com/api/character/', // Improvised required argument in JS
-//   page = 1,
-//   previousResponse = []
-// ) {
-//   return fetch(`${url}${page}`) // Append the page number to the base URL
-//     .then(response => response.json())
-//     .then(newResponse => {
-//       const response = [...previousResponse, ...newResponse.name];
-//       // Combine the two arrays
-
-//       if (page < 20) {
-//         page++;
-//         // console.log(newResponse);
-//         return paginatedCharacterFetch(url, page, response);
-//       }
-//       console.log(newResponse);
-//       createCharacterCard(newResponse);
-//     })
-//     .catch(error => {
-//       console.error(error.message);
-//     });
-// }
-
 // ------------------- Character Guide -------------------------- //
 
-function paginatedCharacterFetch() {
+async function paginatedCharacterFetch() {
   const limitPerPage = 20;
   const apiUrl = 'https://rickandmortyapi.com/api/character/';
 
   const getUsers = async function (pageNo = 1) {
-    let actualUrl = apiUrl + `?page=${pageNo}&limit=${limitPerPage}`;
-    var apiResults = await fetch(actualUrl).then(resp => {
-      return resp.json();
-    });
+    const actualUrl = apiUrl + `?page=${pageNo}&limit=${limitPerPage}`;
+    const apiResults = await fetch(actualUrl);
+    const data = await apiResults.json();
 
-    return apiResults;
+    return data.results;
   };
 
   const getEntireUserList = async function (pageNo = 1) {
     const results = await getUsers(pageNo);
     console.log('Retreiving data from API for page : ' + pageNo);
-    if (results.length > 0 /*pageNo < 42*/) {
+    console.log(results);
+    if (/*results.length > 0*/ pageNo < 42) {
       return results.concat(await getEntireUserList(pageNo + 1));
     } else {
       return results;
     }
   };
 
-  (async () => {
-    const entireList = await getEntireUserList();
-    createCharacterCard(entireList.results);
-  })();
+  const entireList = await getEntireUserList();
+  createCharacterCard(entireList);
 }
 paginatedCharacterFetch();
 
@@ -108,54 +78,8 @@ function createCharacterCard(characterCard) {
     );
 
     console.log(characterFromEarth);
-
+    // characterList.innerHTML = '';
     characterFromEarth.forEach(character => {
-      const characterFromEarthContainer = document.createElement('div');
-      characterFromEarthContainer.classList.add('character-container');
-
-      const characterInfoContainer = document.createElement('article');
-      characterInfoContainer.classList.add('info-container');
-
-      const characterInfoList = document.createElement('ul');
-      characterInfoList.classList.add('character-info-list');
-
-      const characterName = document.createElement('h2');
-      characterName.classList.add('character-name');
-      characterName.innerText = character.name;
-      const characterImg = document.createElement('img');
-      characterImg.classList.add('character-img');
-      characterImg.src = character.image;
-
-      const characterInfoSpecies = document.createElement('li');
-      characterInfoSpecies.classList.add('character-info-list__item');
-      characterInfoSpecies.innerHTML = `<span>Species:</span> ${character.species}`;
-      const characterInfoUniverse = document.createElement('li');
-      characterInfoUniverse.classList.add('character-info-list__item');
-      characterInfoUniverse.innerHTML = `<span>Universe:</span> ${character.origin.name}`;
-      const characterInfoStatus = document.createElement('li');
-      characterInfoStatus.classList.add('character-info-list__item');
-      characterInfoStatus.innerHTML = `<span>Status:</span> ${character.status}`;
-
-      characterList.append(characterFromEarthContainer);
-      characterFromEarthContainer.append(characterName, characterInfoContainer);
-      characterInfoContainer.append(characterImg, characterInfoList);
-      characterInfoList.append(
-        characterInfoSpecies,
-        characterInfoUniverse,
-        characterInfoStatus
-      );
-    });
-  });
-
-  // Filter by Species
-  speciesFilterButton.addEventListener('click', () => {
-    const characterSpieciesHuman = characterCard.filter(character =>
-      character.species.includes('Human')
-    );
-
-    console.log(characterSpieciesHuman);
-
-    characterSpieciesHuman.forEach(character => {
       const characterFromEarthContainer = document.createElement('div');
       characterFromEarthContainer.classList.add('character-container');
 
@@ -267,19 +191,10 @@ function handleNav() {
 function filterSeasons(seasons) {
   arrSeasonData = seasons.filter(season => {
     const seasonNumber = Number(season.episode.substring(2, 3));
-    // console.log(seasonNumber)
     return currentSeasonNumber === seasonNumber;
   });
   buildEpisodeView();
 }
-
-// function buildSeasonView() {
-//   //
-// }
-
-// function resetEpisodeView() {
-//   //
-// }
 
 function buildEpisodeView() {
   const dynamicSeasonContainer = document.querySelector(
@@ -301,12 +216,6 @@ function showSeasonOverview() {
   resetSeasonOverview();
   paginatedFetch();
 }
-
-// function showEpisodeView(episodeNumber = 1) {
-//   console.log(episodeNumber);
-//   resetEpisodeView();
-//   buildEpisodeView();
-// }
 
 function seasonNavigation() {
   const navButtons = document.querySelectorAll('.episodeGuide button');
